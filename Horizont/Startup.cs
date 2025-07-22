@@ -11,6 +11,7 @@ using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Horizont.Connection;
 using Horizont.Models;
+using Horizont.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Horizont
@@ -30,6 +31,7 @@ namespace Horizont
             services.AddMvc();
             services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(Configuration.GetConnectionString("default")));
 
+            services.AddTransient<ISaleService, SaleService>();
             services.AddTransient<IBaseRepository<SaleDocument>, BaseRepository<SaleDocument>>();
             services.AddTransient<IBaseRepository<Assortment>, BaseRepository<Assortment>>();
         }
