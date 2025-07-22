@@ -7,7 +7,11 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using Horizont.Connection;
+using Horizont.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Horizont
 {
@@ -23,8 +27,13 @@ namespace Horizont
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddMvc();
+            services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(Configuration.GetConnectionString("default")));
+
+            services.AddTransient<IBaseRepository<SaleDocument>, BaseRepository<SaleDocument>>();
+            services.AddTransient<IBaseRepository<Assortment>, BaseRepository<Assortment>>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,7 +50,7 @@ namespace Horizont
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
 
             app.UseAuthorization();

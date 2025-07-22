@@ -31,9 +31,9 @@ namespace Horizont.Connection
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql(System.Configuration.ConfigurationManager.AppSettings["ConnectionString"]);
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres ;Username=postgres ;Password=Ujhbpjyns_02042020");
                 optionsBuilder.EnableSensitiveDataLogging();
-                optionsBuilder.UseLazyLoadingProxies();
+                //optionsBuilder.UseLazyLoadingProxies();
             }
         }
 

@@ -11,17 +11,15 @@ namespace Horizont.Controllers
     public class HomeController : ControllerBase
     {
         private ISaleService SaleService { get; set; }
-        private ApplicationContext Context { get; set; }
         private IBaseRepository<Contrpartner> Contrpartners { get; set; }
         private IBaseRepository<Assortment> Assortments { get; set; }
 
 
-        public HomeController(ApplicationContext context)
+        public HomeController(SaleService service, IBaseRepository<Contrpartner> contrpartners, IBaseRepository<Assortment> assortments)
         {
-            Context = context;
-            SaleService = new SaleService();
-            Contrpartners = new BaseRepository<Contrpartner>(context);
-            Assortments = new BaseRepository<Assortment>(context);
+            SaleService = service;
+            Contrpartners = contrpartners;
+            Assortments = assortments;
         }
 
         [HttpGet]

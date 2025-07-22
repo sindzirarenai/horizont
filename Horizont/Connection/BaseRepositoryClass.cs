@@ -29,6 +29,7 @@ namespace Horizont.Connection
 
         public List<TDbModel> GetAll()
         {
+            
             return Context.Set<TDbModel>().ToList();
         }
 

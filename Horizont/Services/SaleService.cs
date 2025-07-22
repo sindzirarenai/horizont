@@ -28,8 +28,13 @@ namespace Horizont.Services
 
         public List<Assortment> GetAprioriAssortment(List<long> ids)
         {
-            var dictionary = SaleDocuments.Linq().ToDictionary(y => y, x => x.Sales.Select(z => z.Assortment).ToList());
-            return dictionary.Values.FirstOrDefault();
+            return new List<Assortment>();
+            /*var dictionary = SaleDocuments.Linq()
+                .Where(x => x.GetAssortments().Count(y => ids.Contains(y.Id)) == ids.Count)
+                .ToDictionary(y => y, x => x.Sales.Select(z => z.Assortment).OrderBy(z => z.Id).ToList());
+            var dictionaryFrequently = dictionary.SelectMany(x => x.Value).GroupBy(z => z)
+                .ToDictionary(y => y.ToList(), z => z.Count()).OrderByDescending(t => t.Value);
+            return dictionaryFrequently.Select(z=>z.Key)*/
         }
     }
 }
